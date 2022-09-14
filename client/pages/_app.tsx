@@ -17,7 +17,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       <ModalProvider>
         <WalletProvider>
           <Head>
-            <title>NextJS Starter</title>
+            <title>Molecule 2.0</title>
             <meta
               name="viewport"
               content="width=device-width, initial-scale=1.0"
