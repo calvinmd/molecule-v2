@@ -4,6 +4,7 @@ export const initialState: StoreState = {
   provider: undefined,
   account: undefined,
   balance: '0',
+  regionCode: 0,
 };
 
 const reducer = (state: StoreState, action: StoreActions) => {
@@ -22,6 +23,11 @@ const reducer = (state: StoreState, action: StoreActions) => {
       return {
         ...state,
         balance: action.payload.balance,
+      };
+    case StoreActionTypes.SET_REGION_CODE:
+      return {
+        ...state,
+        regionCode: action.payload.regionCode,
       };
     case StoreActionTypes.CLEAR_STATE:
       return initialState;

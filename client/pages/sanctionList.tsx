@@ -1,15 +1,52 @@
-import Layout from "@components/Layout/Layout";
-import Sidebar from "@components/Layout/Sidebar";
-import { NextPage } from "next";
-import React, { useState, useCallback } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useCallback, useState } from 'react';
+import { NextPage } from 'next';
+
+import Layout from '@components/Layout/Layout';
+import Sidebar from '@components/Layout/Sidebar';
+import { useWeb3 } from '@hooks/useWeb3';
+import { useStore } from '@store/store';
+import { RegionCodes } from '@type/common';
+import { StoreActionTypes } from '@type/store';
 
 const sanctionList: NextPage = () => {
-  const [walletAddress, setWalletAddress] = useState<string>("");
-  const [region, selectRegion] = useState<number>(0);
+  const { store, dispatch } = useStore();
+  const [walletAddress, setWalletAddress] = useState<string>('');
+  const [region, setRegion] = useState<string>('Select Country');
+  const { checkSanctionStatus } = useWeb3();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (e: any) => {
     setWalletAddress(e.target.value);
   };
+
+  const handleSelectRegion = useCallback(
+    async (regionId: number) => {
+      dispatch({
+        type: StoreActionTypes.SET_REGION_CODE,
+        payload: { regionCode: regionId },
+      });
+
+      if (regionId == RegionCodes.USA) {
+        setRegion('United States of America (USA)');
+      } else {
+        setRegion('United Kingdom (UK)');
+      }
+
+      if (walletAddress) {
+        const sanctionCheck = await checkSanctionStatus(
+          regionId,
+          walletAddress
+        );
+        if (sanctionCheck) {
+          console.log(true);
+        }
+      }
+    },
+    [checkSanctionStatus, dispatch, walletAddress]
+  );
+
   return (
     <Layout>
       <div className="flex flex-row">
@@ -33,11 +70,11 @@ const sanctionList: NextPage = () => {
                       type="button"
                     >
                       <span className="text-white text-[14px] p-2">
-                        Select Country
+                        {region}
                       </span>
                       <img
                         className="w-[20px] h-[20px]"
-                        src={"/img/arrow_down.svg"}
+                        src={'/img/arrow_down.svg'}
                         alt="arrow"
                       />
                     </button>
@@ -50,7 +87,12 @@ const sanctionList: NextPage = () => {
                         aria-labelledby="dropdownDefault"
                       >
                         <li>
-                          <button className="block w-[300px] py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                          <button
+                            className="block w-[300px] py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            onClick={() => {
+                              handleSelectRegion(1);
+                            }}
+                          >
                             United States of America (USA)
                           </button>
                         </li>
@@ -63,14 +105,14 @@ const sanctionList: NextPage = () => {
                     </div>
 
                     <input
-                      placeholder={"Wallet Address"}
+                      placeholder={'Wallet Address'}
                       onChange={handleChange}
                       className="flex items-center w-full p-3 text-base font-bold text-white text-center rounded-lg placeholder:text-right bg-gray-700 hover:bg-gray-700 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
                     ></input>
                   </div>
 
                   <div className="w-[350px] h-[1px] border border-gray-100"></div>
-                  <div className='pt-20'>
+                  <div className="pt-20">
                     <button className="w-[300px] h-[50px] text-white border border-white rounded-lg">
                       Submit
                     </button>

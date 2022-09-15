@@ -17,12 +17,14 @@ export enum StoreActionTypes {
   SET_PROVIDER = 'SET_PROVIDER',
   SET_BALANCE = 'SET_BALANCE',
   CLEAR_STATE = 'CLEAR_STATE',
+  SET_REGION_CODE = 'SET_REGION_CODE',
 }
 
 export interface StoreState {
   provider?: providers.AlchemyProvider | providers.Web3Provider;
   account?: string;
   balance?: string;
+  regionCode: number;
 }
 
 type StorePayload = {
@@ -34,6 +36,9 @@ type StorePayload = {
   };
   [StoreActionTypes.SET_BALANCE]: {
     balance: string;
+  };
+  [StoreActionTypes.SET_REGION_CODE]: {
+    regionCode: number;
   };
   [StoreActionTypes.CLEAR_STATE]: undefined;
 };
