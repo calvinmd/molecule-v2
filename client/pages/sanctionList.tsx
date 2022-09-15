@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useCallback, useState } from 'react';
 import { NextPage } from 'next';
 
@@ -10,8 +8,8 @@ import { useStore } from '@store/store';
 import { RegionCodes } from '@type/common';
 import { StoreActionTypes } from '@type/store';
 
-const sanctionList: NextPage = () => {
-  const { store, dispatch } = useStore();
+const SanctionList: NextPage = () => {
+  const { dispatch } = useStore();
   const [walletAddress, setWalletAddress] = useState<string>('');
   const [region, setRegion] = useState<string>('Select Country');
   const { checkSanctionStatus } = useWeb3();
@@ -127,4 +125,4 @@ const sanctionList: NextPage = () => {
   );
 };
 
-export default sanctionList;
+export default SanctionList;
