@@ -36,7 +36,7 @@ export const useWeb3 = () => {
   const checkSanctionStatus = useCallback(
     async (regionId: number, address: string) => {
       const addressCheck: ContractTransaction =
-        await moleculeScanContractInstance.queryBatchStatus(
+        await moleculeFactoryContractInstance.queryBatchStatus(
           regionId,
           ethers.utils.getAddress(address)
         );
@@ -45,7 +45,7 @@ export const useWeb3 = () => {
       }
       return false;
     },
-    [moleculeScanContractInstance]
+    [moleculeFactoryContractInstance]
   );
 
   return {

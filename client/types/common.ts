@@ -4,6 +4,12 @@ export enum WalletType {
 }
 
 export enum RegionCodes {
-  'USA' = 1,
-  'UK' = 2,
+  USA = 1,
+  UK = 2,
+}
+
+export enum SanctionViewType {
+  CHECK_STATUS = 'check_status',
+  SANCTIONED = 'sanctioned',
+  NON_SANCTIONED = 'non_sanctioned',
 }

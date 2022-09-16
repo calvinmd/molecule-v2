@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Footer from './Footer';
-import Header from './Header';
+// import Footer from './Footer';
+// import Header from './Header';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -13,7 +13,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       {/* <div className="bg-black ">
         <Header />
       </div> */}
-      <div className="flex flex-col w-full bg-gray-500 grow">{children}</div>
+      <div className="flex flex-col w-full bg-beige-1 grow">{children}</div>
       {/* <div className="bg-black">
         <Footer />
       </div> */}

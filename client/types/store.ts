@@ -1,5 +1,7 @@
 import { providers } from 'ethers';
 
+import { SanctionViewType } from '@type/common';
+
 // eslint-disable-next-line
 type ActionMap<M extends { [index: string]: any }> = {
   [Key in keyof M]: M[Key] extends undefined
@@ -18,6 +20,7 @@ export enum StoreActionTypes {
   SET_BALANCE = 'SET_BALANCE',
   CLEAR_STATE = 'CLEAR_STATE',
   SET_REGION_CODE = 'SET_REGION_CODE',
+  SET_SANCTION_VIEW = 'SET_SANCTION_VIEW',
 }
 
 export interface StoreState {
@@ -25,6 +28,7 @@ export interface StoreState {
   account?: string;
   balance?: string;
   regionCode: number;
+  sanctionPageView: SanctionViewType;
 }
 
 type StorePayload = {
@@ -39,6 +43,9 @@ type StorePayload = {
   };
   [StoreActionTypes.SET_REGION_CODE]: {
     regionCode: number;
+  };
+  [StoreActionTypes.SET_SANCTION_VIEW]: {
+    viewType: SanctionViewType;
   };
   [StoreActionTypes.CLEAR_STATE]: undefined;
 };

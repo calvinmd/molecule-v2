@@ -24,6 +24,8 @@ module.exports = {
         'red-2': '#FE4545',
         'red-3': '#EB5757',
         'green-1': '#12A656',
+        'beige-1': '#FCFAF6',
+        'sidebar-dark': '#0F0B1C',
       },
       backgroundImage: {},
     },
