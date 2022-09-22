@@ -11,7 +11,9 @@ Molecule Protocol V2
 
 - Deployments in Rinkeby 
 
-- Molecule Factory Address : 
+- Molecule Factory Address : 0xe22f04B40857568505546EEc0a3E7D0c220E67d3
+
+- https://rinkeby.etherscan.io/address/0xe22f04B40857568505546EEc0a3E7D0c220E67d3
 
 # docs
 
