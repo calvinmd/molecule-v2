@@ -4,6 +4,12 @@ Molecule Protocol V2
 
 # Deployments in polygon mumbai 
 
-- Molecule Factory Address : 0xD1b8A007Af1B82b95C7A871bB037992A214685a5
+- Molecule Factory Address : 0x162AEdBe789F84C023Bb218C06B450f732fCB35b
 
-- Molecule Scan Address : 0x7bB8a5646A73c152E5614DF0FF5cEa391aBeB71c
+# Deployments in Rinkeby 
+
+- Molecule Factory Address : 
+
+# docs
+
+- https://docs.moleculeprotocol.io/developers

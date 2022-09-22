@@ -206,7 +206,7 @@ contract MoleculeFactory {
 
     // Batch updation section begins
 
-    function addVerifyProvider(address[] memory _providerAddress)
+    function addVerifiedProvider(address[] memory _providerAddress)
         external
         onlyOwner
         returns (bool)
@@ -217,11 +217,22 @@ contract MoleculeFactory {
         return true;
     }
 
+    function removeVerifiedProvider(address[] memory _providerAddress)
+        external
+        onlyOwner
+        returns (bool)
+    {
+        for (uint256 i = 0; i < _providerAddress.length; i++) {
+            verifiedProviders[_providerAddress[i]] = false;
+        }
+        return true;
+    }
+
     function checkProviderStatus(address _provider) public view returns (bool) {
         return verifiedProviders[_provider];
     }
 
-    function updateBatch(address[] memory _approvedUsers, uint256 _regionalId)
+    function updateBatch(address[] memory _sanctionedUsers, uint256 _regionalId)
         external
         onlyOwner
         returns (
@@ -232,42 +243,33 @@ contract MoleculeFactory {
     {
         bucketIds[_regionalId] += 1;
         uint256 currentBucketId = bucketIds[_regionalId];
-        bytes memory data = abi.encode(_approvedUsers);
+        bytes memory data = abi.encode(_sanctionedUsers);
         regionalData[_regionalId][bucketIds[_regionalId]] = data;
         emit batchId(currentBucketId, block.timestamp);
         return (true, _regionalId, bucketIds[_regionalId]);
     }
 
     function BatchUserList(bytes memory data)
-        private
+        public
         pure
-        returns (address[] memory _approvedUsers)
+        returns (address[] memory _sanctionedUsers)
     {
-        (_approvedUsers) = abi.decode(data, (address[]));
-        return _approvedUsers;
+        (_sanctionedUsers) = abi.decode(data, (address[]));
+        return _sanctionedUsers;
     }
 
-    function updateProviderBatch(address[] memory _approvedUsers)
+    function updateProviderBatch(address[] memory _sanctionedUsers)
         external
         returns (bool, uint256)
     {
         providercurrentBatchId[msg.sender] += 1;
         uint256 currentProviderBatchId = providercurrentBatchId[msg.sender];
-        bytes memory data = abi.encode(_approvedUsers);
+        bytes memory data = abi.encode(_sanctionedUsers);
         ProviderBatchData[msg.sender][currentProviderBatchId] = data;
         return (true, currentProviderBatchId);
     }
 
-    function providerBatchIdList(address _provider)
-        private
-        view
-        returns (uint256)
-    {
-        uint256 providerIds = providercurrentBatchId[_provider];
-        return providerIds;
-    }
-
-    function queryBatchStatus(uint256 _regionalId, address _reciever)
+    function queryBatchStatus(uint256 _regionalId, address _user)
         public
         view
         returns (bool)
@@ -277,7 +279,7 @@ contract MoleculeFactory {
             bytes memory data = regionalData[_regionalId][i];
             address[] memory userList = BatchUserList(data);
             for (uint256 j = 0; j < userList.length; j++) {
-                if (userList[j] == _reciever) {
+                if (userList[j] == _user) {
                     status = true;
                 }
             }
@@ -287,7 +289,7 @@ contract MoleculeFactory {
 
     function queryProviderBatchStatus(
         uint256 _batchId,
-        address _reciever,
+        address _user,
         address _provider
     ) public view returns (bool) {
         bool recieverStatus;
@@ -298,7 +300,7 @@ contract MoleculeFactory {
         bytes memory data = ProviderBatchData[_provider][_batchId];
         address[] memory userList = BatchUserList(data);
         for (uint256 i = 0; i < userList.length; i++) {
-            if (userList[i] == _reciever) {
+            if (userList[i] == _user) {
                 recieverStatus = true;
             } else recieverStatus = false;
         }

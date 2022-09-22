@@ -20,17 +20,9 @@ interface MoleculeFactory {
 }
 
 contract MoleculeScan {
-    address public moleculeFactory;
-    address public owner;
-
-    constructor() {
-        owner = msg.sender;
-    }
-
-    modifier onlyOwner() {
-        require(msg.sender == owner);
-        _;
-    }
+    // polygon mumbai testnet moleculeFactory Address
+    address private constant moleculeFactory =
+        0x162AEdBe789F84C023Bb218C06B450f732fCB35b;
 
     modifier moleculeVerify(address _moleculeNftAddress) {
         MoleculeFactory M = MoleculeFactory(moleculeFactory);
@@ -42,7 +34,7 @@ contract MoleculeScan {
     modifier moleculeBatchVerify(uint256 _regionalId) {
         MoleculeFactory M = MoleculeFactory(moleculeFactory);
         bool status = M.queryBatchStatus(_regionalId, msg.sender);
-        require(status == true, "Molecule Access Denied");
+        require(status == false, "Molecule Access Denied");
         _;
     }
 
@@ -53,16 +45,7 @@ contract MoleculeScan {
             msg.sender,
             _provider
         );
-        require(status == true, "Molecule Access Denied");
+        require(status == false, "Molecule Access Denied");
         _;
-    }
-
-    function setMoleculeFactory(address _factory)
-        public
-        onlyOwner
-        returns (bool)
-    {
-        moleculeFactory = _factory;
-        return true;
     }
 }
