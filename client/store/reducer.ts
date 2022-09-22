@@ -1,12 +1,12 @@
-import { SanctionViewType } from '@type/common';
+import { GeneralSanctionViewType } from '@type/common';
 import { StoreActions, StoreActionTypes, StoreState } from '@type/store';
 
 export const initialState: StoreState = {
   provider: undefined,
   account: undefined,
   balance: '0',
-  regionCode: 0,
-  sanctionPageView: SanctionViewType.CHECK_STATUS,
+  regionCodes: [],
+  sanctionPageView: GeneralSanctionViewType.CHECK_STATUS,
 };
 
 const reducer = (state: StoreState, action: StoreActions) => {
@@ -29,7 +29,7 @@ const reducer = (state: StoreState, action: StoreActions) => {
     case StoreActionTypes.SET_REGION_CODE:
       return {
         ...state,
-        regionCode: action.payload.regionCode,
+        regionCodes: action.payload.regionCodes,
       };
     case StoreActionTypes.SET_SANCTION_VIEW:
       return {

@@ -1,46 +1,46 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 
+import RegionModal from '@components/Modal/RegionModal';
 import WalletModal from '@components/Modal/WalletModal';
 
+export enum ModalEnum {
+  CONNECT_MODAL = 'connect-modal',
+  WALLET_MODAL = 'wallet-modal',
+  REGION_MODAL = 'region-modal',
+}
+
 export interface ModalContextProps {
-  isConnectModalShown: boolean;
-  showConnectModal: () => void;
-  hideConnectModal: () => void;
+  modal: ModalEnum | null;
+  setModal: (modal: ModalEnum) => void;
+  hideModal: () => void;
 }
 
 const defaultContext: ModalContextProps = {
-  isConnectModalShown: false,
-  showConnectModal: () => null,
-  hideConnectModal: () => null,
+  modal: null,
+  setModal: () => null,
+  hideModal: () => null,
 };
 
 export const ModalContext = createContext<ModalContextProps>(defaultContext);
 
 export const ModalProvider: React.FC = ({ children }) => {
-  const [isConnectModalShown, setIsConnectModalShown] = useState(
-    defaultContext.isConnectModalShown
-  );
+  const [modal, setModal] = useState(defaultContext.modal);
 
-  const showConnectModal = useCallback(
-    () => setIsConnectModalShown(true),
-    [setIsConnectModalShown]
-  );
-  const hideConnectModal = useCallback(
-    () => setIsConnectModalShown(false),
-    [setIsConnectModalShown]
-  );
+  const hideModal = useCallback(() => setModal(null), [setModal]);
 
   return (
     <ModalContext.Provider
       value={{
         ...defaultContext,
-        isConnectModalShown,
-        showConnectModal,
-        hideConnectModal,
+        modal,
+        setModal,
+        hideModal,
       }}
     >
       {children}
-      {isConnectModalShown && <WalletModal />}
+      {modal == ModalEnum.CONNECT_MODAL && <WalletModal />}
+      {modal == ModalEnum.REGION_MODAL && <RegionModal />}
+      {}
     </ModalContext.Provider>
   );
 };

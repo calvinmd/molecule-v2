@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { useModal } from '@contexts/modal';
+import { ModalEnum, useModal } from '@contexts/modal';
 import { useWallet } from '@contexts/wallet';
 
 interface ConnectButtonProps {} // eslint-disable-line
 
 const ConnectButton: React.FC<ConnectButtonProps> = () => {
   const { connected, disconnect } = useWallet();
-  const { showConnectModal } = useModal();
+  const { setModal } = useModal();
 
   const handleConnect = () => {
-    if (!connected) showConnectModal();
+    if (!connected) setModal(ModalEnum.CONNECT_MODAL);
     if (connected) disconnect();
   };
 

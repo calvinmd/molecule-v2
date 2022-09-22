@@ -1,6 +1,9 @@
 import { providers } from 'ethers';
 
-import { SanctionViewType } from '@type/common';
+import {
+  GeneralSanctionViewType,
+  ProviderSanctionViewType,
+} from '@type/common';
 
 // eslint-disable-next-line
 type ActionMap<M extends { [index: string]: any }> = {
@@ -27,8 +30,8 @@ export interface StoreState {
   provider?: providers.AlchemyProvider | providers.Web3Provider;
   account?: string;
   balance?: string;
-  regionCode: number;
-  sanctionPageView: SanctionViewType;
+  regionCodes: number[];
+  sanctionPageView: GeneralSanctionViewType | ProviderSanctionViewType;
 }
 
 type StorePayload = {
@@ -42,10 +45,10 @@ type StorePayload = {
     balance: string;
   };
   [StoreActionTypes.SET_REGION_CODE]: {
-    regionCode: number;
+    regionCodes: number[];
   };
   [StoreActionTypes.SET_SANCTION_VIEW]: {
-    viewType: SanctionViewType;
+    viewType: GeneralSanctionViewType | ProviderSanctionViewType;
   };
   [StoreActionTypes.CLEAR_STATE]: undefined;
 };

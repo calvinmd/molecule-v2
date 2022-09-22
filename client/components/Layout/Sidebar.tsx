@@ -10,12 +10,12 @@ const Sidebar: React.FC<SidebarProps> = () => {
   const { store } = useStore();
   const { account } = store;
   return (
-    <div className="flex flex-col min-h-screen bg-sidebar-dark w-[313px] border border-white border-opacity-5 justify-between">
+    <div className="flex flex-col min-h-screen bg-sidebar-dark min-w-[313px] max-w-[313px] border border-white border-opacity-5 justify-between">
       <div className="flex flex-col">
         <div className="flex w-full justify-center items-center p-4">
           <img
             className="w-[250px] h-[70px]"
-            src={'/img/molecule-logo.svg'}
+            src={'/img/molecule-dark.svg'}
             alt="molecule"
           />
         </div>
@@ -33,7 +33,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
             alt="user"
           />
           <span className="text-white text-[16px] font-poppins truncate p-4">
-            0xF9AB0CC40324d0565111846beeb11BCC676D6eaC
+            {account}
           </span>
         </div>
       ) : (
