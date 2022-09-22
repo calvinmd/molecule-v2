@@ -302,7 +302,7 @@ contract MoleculeFactory {
         for (uint256 i = 0; i < userList.length; i++) {
             if (userList[i] == _user) {
                 recieverStatus = true;
-            } else recieverStatus = false;
+            }
         }
         return recieverStatus;
     }

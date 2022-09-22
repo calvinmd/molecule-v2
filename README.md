@@ -5,15 +5,15 @@ Molecule Protocol V2
 
 - Deployments in polygon mumbai 
 
-- Molecule Factory Address : 0x162AEdBe789F84C023Bb218C06B450f732fCB35b
+- Molecule Factory Address : 0xf1DFF4ed1ab2F3609454051DC4451bCeFB78f6C8
 
-- https://mumbai.polygonscan.com/address/0x162AEdBe789F84C023Bb218C06B450f732fCB35b
+- https://mumbai.polygonscan.com/address/0xf1DFF4ed1ab2F3609454051DC4451bCeFB78f6C8
 
 - Deployments in Rinkeby 
 
-- Molecule Factory Address : 0xe22f04B40857568505546EEc0a3E7D0c220E67d3
+- Molecule Factory Address : 0x1706F18AB2175d8a0701f2c8FF24AE3C2850AeD6
 
-- https://rinkeby.etherscan.io/address/0xe22f04B40857568505546EEc0a3E7D0c220E67d3
+- https://rinkeby.etherscan.io/address/0x1706F18AB2175d8a0701f2c8FF24AE3C2850AeD6
 
 # docs
 
