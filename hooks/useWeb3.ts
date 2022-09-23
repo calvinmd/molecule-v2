@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useCallback, useMemo } from 'react';
 import { ContractTransaction, ethers } from 'ethers';
 
 import {
   MOLECULE_FACTORY_CONTRACT_ADDRESS,
-  MOLECULE_SCAN_CONTRACT_ADDRESS,
+  // MOLECULE_SCAN_CONTRACT_ADDRESS,
 } from '@config/config';
 import { useStore } from '@store/store';
 import {
@@ -17,18 +16,18 @@ import ABI from '../abi/abi.json';
 
 export const useWeb3 = () => {
   const { store } = useStore();
-  const { account, provider } = store;
+  const { provider } = store;
 
   const signer = provider?.getSigner();
-  const signerAddress = signer?.getAddress();
+  // const signerAddress = signer?.getAddress();
 
-  const moleculeScanContractInstance = useMemo(() => {
-    return new ethers.Contract(
-      MOLECULE_SCAN_CONTRACT_ADDRESS,
-      ABI.MoleculeScan,
-      signer
-    );
-  }, [signer]);
+  // const moleculeScanContractInstance = useMemo(() => {
+  //   return new ethers.Contract(
+  //     MOLECULE_SCAN_CONTRACT_ADDRESS,
+  //     ABI.MoleculeScan,
+  //     signer
+  //   );
+  // }, [signer]);
 
   const moleculeFactoryContractInstance = useMemo(() => {
     return new ethers.Contract(
@@ -48,6 +47,7 @@ export const useWeb3 = () => {
               ethers.utils.getAddress(address)
             );
           if (addressCheck) {
+            console.log(addressCheck);
             return {
               region: region,
               status: true,
@@ -60,8 +60,6 @@ export const useWeb3 = () => {
           }
         })
       );
-
-      console.log('data', resultList);
 
       return resultList;
     },
