@@ -4,6 +4,7 @@ import WalletConnectProvider from '@walletconnect/web3-provider';
 import { providers } from 'ethers';
 
 import { ALCHEMY_API_KEY, ALCHEMY_URL, ETHEREUM_NETWORK } from '@config/config';
+import { GeneralSanctionViewType } from '@type/common';
 import { StoreActions, StoreActionTypes, StoreState } from '@type/store';
 
 export const configMetamask = async (
@@ -32,7 +33,12 @@ export const configMetamask = async (
     payload: { account: accounts[0] },
   });
 
-  return { provider, account: accounts[0] };
+  return {
+    provider,
+    account: accounts[0],
+    regionCodes: [],
+    sanctionPageView: GeneralSanctionViewType.CHECK_STATUS,
+  };
 };
 
 export const configWalletConnect = async (
@@ -59,5 +65,10 @@ export const configWalletConnect = async (
     payload: { account: accounts[0] },
   });
 
-  return { provider, account: accounts[0] };
+  return {
+    provider,
+    account: accounts[0],
+    regionCodes: [],
+    sanctionPageView: GeneralSanctionViewType.CHECK_STATUS,
+  };
 };

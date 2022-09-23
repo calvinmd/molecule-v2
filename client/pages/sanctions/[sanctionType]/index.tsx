@@ -364,7 +364,7 @@ const Index: NextPage<SanctionView> = ({ view }) => {
                     allowed to interact with your platform.
                   </span>
                 </div>
-                <div className="flex flex-col gap-y-4 py-10 place-self-center w-full">
+                <div className="flex flex-col w-full items-center gap-y-4 py-10">
                   {[...Array(addressFields)].map((e: any, i: number) => {
                     return (
                       <input
@@ -379,13 +379,13 @@ const Index: NextPage<SanctionView> = ({ view }) => {
                             ],
                           })
                         }
-                        className="flex items-center w-3/5 p-3 text-base font-bold text-black rounded-lg placeholder:text-right bg-white group shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
+                        className="flex items-center w-3/5 p-3 text-base font-medium font-poppins text-black rounded-lg placeholder:text-right bg-white group shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
                       ></input>
                     );
                   })}
 
                   <button
-                    className="w-1/2 h-[30px] place-self-center"
+                    className="p-2 text-amber-600 border border-amber-600 rounded-lg w-1/4 hover:bg-amber-600 hover:text-white hover:shadow"
                     onClick={handleBatchAddressSubmit}
                   >
                     Submit
