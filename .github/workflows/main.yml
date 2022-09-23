@@ -50,4 +50,4 @@ jobs:
           aws-region: us-east-2
 
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./out/ s3://molecule-v2 --delete --recursive
+        run: aws s3 sync ./out/ s3://molecule-v2 --delete
