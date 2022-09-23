@@ -92,7 +92,7 @@ const ProviderIndex: NextPage = () => {
               Provider Sanction List
             </span>
             <button
-              className="p-2 text-amber-600 border border-amber-600 rounded-lg"
+              className="p-2 text-amber-600 border border-amber-600 rounded-lg hover:text-white hover:bg-amber-600"
               onClick={handleAddBatchClick}
             >
               Add Address List

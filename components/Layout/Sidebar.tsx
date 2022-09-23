@@ -14,12 +14,18 @@ const Sidebar: React.FC<SidebarProps> = () => {
       <div className="flex flex-col">
         <div className="flex w-full justify-center items-center p-4">
           <img
-            className="w-[250px] h-[70px]"
+            className="w-[200px] h-[70px]"
             src={'/img/molecule-dark.svg'}
             alt="molecule"
           />
         </div>
-        <div className="relative flex flex-row items-center h-[70px] w-full px-2 rounded-xl  hover:bg-opacity-10 hover:bg-gray-200">
+        <div
+          className="relative flex flex-row items-center h-[70px] w-full px-2 rounded-m hover:bg-opacity-10"
+          style={{
+            background:
+              'linear-gradient(269.63deg, rgba(253, 78, 5, 0.3) 0.25%, rgba(253, 78, 5, 0) 99.68%)',
+          }}
+        >
           <span className="text-white text-[16px] font-poppins pl-3">
             Sanction List
           </span>
@@ -27,11 +33,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
       </div>
       {account ? (
         <div className="flex flex-row h-[70px] items-center justify-center p-4">
-          <img
-            className="w-[35px] h-[35px]"
-            src={'/img/avatar_placeholder.png'}
-            alt="user"
-          />
+          <img className="w-[35px] h-[35px]" src={'/img/user.svg'} alt="user" />
           <span className="text-white text-[16px] font-poppins truncate p-4">
             {account}
           </span>

@@ -65,16 +65,16 @@ const GeneralIndex: NextPage = () => {
           {sanctionPageView == GeneralSanctionViewType.CHECK_STATUS ? (
             <div className="h-3/5">
               <div className="flex flex-col">
-                <div className="p-10 w-[500px] h-[540px] bg-gray-500 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 place-self-center">
+                <div className="p-10 w-[500px] h-[540px] bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 place-self-center">
                   <div className="flex flex-col items-center justify-center">
-                    <span className="text-white text-[22px] font-poppins">
+                    <span className="text-black text-[22px] font-poppins">
                       Select Your Region
                     </span>
                     <div className="flex flex-col pt-12 pb-12 gap-y-4">
                       <button
                         id="dropdownDefault"
                         data-dropdown-toggle="dropdown"
-                        className="text-white bg-gray-700 w-[300px] hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="text-white bg-white-input w-[300px] hover:bg-gray-200 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         type="button"
                         onClick={() => {
                           setModal(ModalEnum.REGION_MODAL);
@@ -101,7 +101,7 @@ const GeneralIndex: NextPage = () => {
                           </div>
                         ) : (
                           <div className="flex flex-row justify-between items-center">
-                            <span className="text-white text-[14px] p-2">
+                            <span className="text-black font-poppins text-[14px] p-2">
                               Select Country
                             </span>
                             <img
@@ -116,14 +116,14 @@ const GeneralIndex: NextPage = () => {
                       <input
                         placeholder={'Wallet Address'}
                         onChange={handleChange}
-                        className="flex items-center w-full p-3 text-base font-bold text-white text-center rounded-lg placeholder:text-right bg-gray-700 hover:bg-gray-700 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
+                        className="flex items-center w-full p-3 bg-white-input text-base font-bold text-black font-poppins text-center rounded-lg placeholder:text-right hover:bg-gray-200 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
                       ></input>
                     </div>
 
                     <div className="w-[350px] h-[1px] border border-gray-100"></div>
                     <div className="pt-20">
                       <button
-                        className="w-[300px] h-[50px] text-white border border-white rounded-lg"
+                        className="w-[300px] h-[50px] text-amber-600 border border-amber-600 rounded-lg hover:text-white hover:bg-amber-600"
                         onClick={handleSubmit}
                       >
                         Submit
@@ -136,41 +136,69 @@ const GeneralIndex: NextPage = () => {
                     {sanctionChecklist.map(
                       (item: GeneralSanctionContractCheck, key: number) => (
                         <div
-                          className="flex flex-row w-full bg-white h-[40px]"
+                          className="flex flex-row w-[500px] bg-white h-[40px]"
                           key={key}
                         >
                           {item.region == RegionCodes.UK ? (
-                            <div className="flex flex-row items-center justify-between p-4 w-full">
+                            <div className="flex flex-row items-center justify-between p-4 w-[500px]">
                               <img
                                 className="w-[25px] h-[25px]"
                                 src={'/img/UK.svg'}
                                 alt="arrow"
                               />
                               {!item.status ? (
-                                <span className="text-black text-[16px] font-poppins">
-                                  Not Sanctioned
-                                </span>
+                                <div className="flex flex-row">
+                                  <img
+                                    className="w-[25px] h-[25px] space-x-2"
+                                    src={'/img/checkmark.svg'}
+                                    alt="arrow"
+                                  />
+                                  <span className="text-black text-[16px] font-poppins">
+                                    Not Sanctioned
+                                  </span>
+                                </div>
                               ) : (
-                                <span className="text-black text-[16px] font-poppins">
-                                  Sanctioned
-                                </span>
+                                <div className="flex flex-row space-x-2">
+                                  <img
+                                    className="w-[25px] h-[25px]"
+                                    src={'/img/cross_icon.svg'}
+                                    alt="arrow"
+                                  />
+                                  <span className="text-black text-[16px] font-poppins">
+                                    Sanctioned
+                                  </span>
+                                </div>
                               )}
                             </div>
                           ) : (
-                            <div className="flex flex-row items-center justify-between p-4 w-full">
+                            <div className="flex flex-row items-center justify-between p-4 w-[500px]">
                               <img
                                 className="w-[25px] h-[25px]"
                                 src={'/img/US.svg'}
                                 alt="arrow"
                               />
                               {!item.status ? (
-                                <span className="text-black text-[16px] font-poppins">
-                                  Not Sanctioned
-                                </span>
+                                <div className="flex flex-row space-x-2">
+                                  <img
+                                    className="w-[25px] h-[25px]"
+                                    src={'/img/checkmark.svg'}
+                                    alt="arrow"
+                                  />
+                                  <span className="text-black text-[16px] font-poppins">
+                                    Not Sanctioned
+                                  </span>
+                                </div>
                               ) : (
-                                <span className="text-black text-[16px] font-poppins">
-                                  Sanctioned
-                                </span>
+                                <div className="flex flex-row space-x-2">
+                                  <img
+                                    className="w-[25px] h-[25px]"
+                                    src={'/img/cross_icon.svg'}
+                                    alt="arrow"
+                                  />
+                                  <span className="text-black text-[16px] font-poppins">
+                                    Sanctioned
+                                  </span>
+                                </div>
                               )}
                             </div>
                           )}
