@@ -40,6 +40,7 @@ const Index: NextPage<SanctionView> = ({ view }) => {
   const [sanctionChecklist, setSanctionChecklist] = useState<
     GeneralSanctionContractCheck[] | undefined
   >(undefined);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [addressFields, setAddressFields] = useState<number>(5);
   const [accordionElements, setAccordionElements] = useState<string[]>([]);
   const { checkSanctionStatus, getProviderBatchList, createBatchByProvider } =
