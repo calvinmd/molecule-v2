@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -15,20 +16,54 @@ interface BatchAddress {
   addresses: string[];
 }
 
+interface VerifySanctionMessage {
+  status?: boolean;
+  message?: string;
+}
+
 const ProviderIndex: NextPage = () => {
   const { dispatch, store } = useStore();
   const { account, sanctionPageView } = store;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [batchId, setBatchId] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
   const [addressFields, setAddressFields] = useState<number>(5); //setAddressFields ot increase number of input fields
   const [accordionElements, setAccordionElements] = useState<string[]>([]);
   const [batches, setBatches] = useState<ProviderBatchList[] | undefined>(
     undefined
   );
+  const [message, setMessage] = useState<VerifySanctionMessage>({
+    status: undefined,
+    message: undefined,
+  });
   const [enteredAddresses, setEnteredAddresses] = useState<BatchAddress>({
     addresses: [],
   });
 
-  const { getProviderBatchList, createBatchByProvider } = useWeb3();
+  const { getProviderBatchList, createBatchByProvider, verifyAddressInBatch } =
+    useWeb3();
+
+  const handleBatchChange = (e: any) => {
+    setBatchId(e.target.value);
+  };
+
+  const handleAddressInput = (e: any) => {
+    setAddress(e.target.value);
+  };
+
+  const handleBatchAddressVerifySubmit = useCallback(async () => {
+    if (account) {
+      const verify = await verifyAddressInBatch(
+        parseInt(batchId),
+        address,
+        account
+      );
+      if (verify) {
+        setMessage({ status: true, message: 'Sanctioned' });
+      } else {
+        setMessage({ status: false, message: 'Not Sanctioned' });
+      }
+    }
+  }, [account, address, batchId, verifyAddressInBatch]);
 
   const handleBatchAddressSubmit = useCallback(async () => {
     console.log(enteredAddresses.addresses);
@@ -63,6 +98,13 @@ const ProviderIndex: NextPage = () => {
     });
   }, [dispatch]);
 
+  const handleVerifyAddressInBatch = useCallback(() => {
+    dispatch({
+      type: StoreActionTypes.SET_SANCTION_VIEW,
+      payload: { viewType: ProviderSanctionViewType.VERIFY_ADDRESS_IN_BATCH },
+    });
+  }, [dispatch]);
+
   useEffect(() => {
     dispatch({
       type: StoreActionTypes.SET_SANCTION_VIEW,
@@ -91,12 +133,20 @@ const ProviderIndex: NextPage = () => {
             <span className="text-gray-800 text-[24px] font-poppins">
               Provider Sanction List
             </span>
-            <button
-              className="p-2 text-amber-600 border border-amber-600 rounded-lg hover:text-white hover:bg-amber-600"
-              onClick={handleAddBatchClick}
-            >
-              Add Address List
-            </button>
+            <div className="flex flex-row space-x-2">
+              <button
+                className="p-2 text-amber-600 border border-amber-600 rounded-lg hover:text-white hover:bg-amber-600"
+                onClick={handleVerifyAddressInBatch}
+              >
+                Verify Address
+              </button>
+              <button
+                className="p-2 text-amber-600 border border-amber-600 rounded-lg hover:text-white hover:bg-amber-600"
+                onClick={handleAddBatchClick}
+              >
+                Add Address List
+              </button>
+            </div>
           </div>
 
           {sanctionPageView == ProviderSanctionViewType.PROVIDER_BATCH_VIEW ? (
@@ -171,6 +221,48 @@ const ProviderIndex: NextPage = () => {
                     </>
                   );
                 })}
+            </div>
+          ) : sanctionPageView ==
+            ProviderSanctionViewType.VERIFY_ADDRESS_IN_BATCH ? (
+            <div className="flex flex-col p-10">
+              <div className="flex flex-col gap-y-2">
+                <span className="text-black text-[19px] font-poppins">
+                  Verify Address Sanction Status in Batch
+                </span>
+                <div className="p-20 space-y-20 w-[500px] h-[540px] bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 items-center justify-center place-self-center">
+                  <input
+                    placeholder={'Enter Batch ID'}
+                    onChange={handleBatchChange}
+                    className="flex items-center w-full p-3 bg-white-input text-base font-bold text-black font-poppins text-center rounded-lg placeholder:text-right hover:bg-gray-200 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
+                  ></input>
+
+                  <input
+                    placeholder={'Enter Wallet Address To Verify'}
+                    onChange={handleAddressInput}
+                    className="flex items-center w-full p-3 bg-white-input text-base font-bold text-black font-poppins text-center rounded-lg placeholder:text-right hover:bg-gray-200 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
+                  ></input>
+
+                  <button
+                    className="w-full h-[50px] text-amber-600 border border-amber-600 rounded-lg hover:text-white hover:bg-amber-600"
+                    onClick={handleBatchAddressVerifySubmit}
+                  >
+                    Submit
+                  </button>
+                </div>
+                {message.status ? (
+                  <div className="flex flex-row items-center w-full space-x-2">
+                    <span className="text-center text-[16px] font-poppins pt-3">
+                      {message.message}
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex flex-row items-center w-full space-x-2">
+                    <span className="text-center text-[16px] font-poppins pt-3">
+                      {message.message}
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
           ) : (
             <div className="flex flex-col p-10">

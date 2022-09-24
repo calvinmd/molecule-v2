@@ -19,6 +19,7 @@ export enum ProviderSanctionViewType {
   PROVIDER_BATCH_VIEW = 'provider_batch_view',
   CREATE_NEW_BATCH = 'create_new_batch',
   BATCH_LIST = 'batch-list',
+  VERIFY_ADDRESS_IN_BATCH = 'verify_address_in_batch',
 }
 
 export enum SanctionType {

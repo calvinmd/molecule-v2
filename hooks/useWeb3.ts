@@ -137,8 +137,28 @@ export const useWeb3 = () => {
           const txConfirm = await createBatchTx.wait();
           if (txConfirm.confirmations > 0) {
             return true;
+          } else {
+            return false;
           }
         }
+        return false;
+      }
+    },
+    [moleculeFactoryContractInstance]
+  );
+
+  const verifyAddressInBatch = useCallback(
+    async (batchId: number, testAddress: string, providerAddress: string) => {
+      const verifyTx: ContractTransaction =
+        await moleculeFactoryContractInstance.queryProviderBatchStatus(
+          batchId,
+          ethers.utils.getAddress(testAddress),
+          ethers.utils.getAddress(providerAddress)
+        );
+      console.log(verifyTx);
+      if (verifyTx) {
+        return true;
+      } else {
         return false;
       }
     },
@@ -151,5 +171,6 @@ export const useWeb3 = () => {
     getProviderBatchList,
     getAddressListInBatch,
     createBatchByProvider,
+    verifyAddressInBatch,
   };
 };
