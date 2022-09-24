@@ -250,17 +250,13 @@ const ProviderIndex: NextPage = () => {
                   </button>
                 </div>
                 {message.status ? (
-                  <div className="flex flex-row items-center w-full space-x-2">
-                    <span className="text-center text-[16px] font-poppins pt-3">
-                      {message.message}
-                    </span>
-                  </div>
+                  <span className="text-center text-[16px] font-poppins pt-3">
+                    {message.message}
+                  </span>
                 ) : (
-                  <div className="flex flex-row items-center w-full space-x-2">
-                    <span className="text-center text-[16px] font-poppins pt-3">
-                      {message.message}
-                    </span>
-                  </div>
+                  <span className="text-center text-[16px] font-poppins pt-3">
+                    {message.message}
+                  </span>
                 )}
               </div>
             </div>
